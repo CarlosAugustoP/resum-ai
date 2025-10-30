@@ -9,12 +9,12 @@ namespace Resumai.Models
     public class Resume
     {
         public Guid Id { get; set; }
-        public string Title { get; set; } = null!;
-        public string CreatedAt { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
         public ResumeStatus Status { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; } = null!;
-
+        public string Summary { get; set; } = null!;
+        public string Title { get; set; } = null!;
         // will be jsonb in postgres
         public string Content { get; set; } = null!;
 
@@ -22,14 +22,23 @@ namespace Resumai.Models
         {
         }
 
-        public Resume(string title, string createdAt, ResumeStatus status, Guid userId, string content)
+        public Resume(Guid userId,  string content)
         {
             Id = Guid.NewGuid();
-            Title = title;
-            CreatedAt = createdAt;
-            Status = status;
+            Status = ResumeStatus.Draft;
+            CreatedAt = DateTime.UtcNow;
             UserId = userId;
             Content = content;
         }
+
+        public void SetAsCurrent()
+        {
+            Status = ResumeStatus.Current;
+        }
+        public void SaveInactive()
+        {
+            Status = ResumeStatus.Inactive;
+        }
+        
     }
 }

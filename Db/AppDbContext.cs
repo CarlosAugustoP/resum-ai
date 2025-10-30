@@ -11,5 +11,11 @@ namespace Resumai.Db
     {
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Resume> Resumes { get; set; } = null!;
+        public DbSet<JobExperience> JobExperiences { get; set; } = null!;
+        public DbSet<Education> Educations { get; set; } = null!;
+        public DbSet<Skill> Skills { get; set; } = null!;
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
     }
 }

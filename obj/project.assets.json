@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     "net9.0": {
+      "AutoMapper/15.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0",
+          "Microsoft.IdentityModel.JsonWebTokens": "8.14.0"
+        },
+        "compile": {
+          "lib/net9.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net9.0/AutoMapper.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "BCrypt/1.0.0": {
         "type": "package",
         "compile": {
@@ -2938,6 +2956,26 @@
     }
   },
   "libraries": {
+    "AutoMapper/15.1.0": {
+      "sha512": "uJXRC0ysO+i3fuW1onh0cUmaLbEwfMWwAZ5nw2eKhYccHwDgRhSC4Qj3rNdBy4vdhnC3r4NinhhldANKNWpH1Q==",
+      "type": "package",
+      "path": "automapper/15.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "automapper.15.1.0.nupkg.sha512",
+        "automapper.nuspec",
+        "icon.png",
+        "lib/net8.0/AutoMapper.dll",
+        "lib/net8.0/AutoMapper.xml",
+        "lib/net9.0/AutoMapper.dll",
+        "lib/net9.0/AutoMapper.xml",
+        "lib/netstandard2.0/AutoMapper.dll",
+        "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
     "BCrypt/1.0.0": {
       "sha512": "/ibwe2Sg7MJR26IrEzW2Rde9/+A+AYXB5Kf9w/8BVLDdzSfUe4W2M7i2efy1Wa9wHh1k0y81Q6h9Ty8C6IrUGA==",
       "type": "package",
@@ -8245,6 +8283,7 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "Automapper >= 15.1.0",
       "BCrypt >= 1.0.0",
       "BCrypt.Net-Next >= 4.0.3",
       "Microsoft.AspNetCore.Mvc >= 2.3.0",
@@ -8255,23 +8294,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\cpeixoto\\.nuget\\packages\\": {},
+    "C:\\Users\\capv2\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\cpeixoto\\Resumai\\Resumai.csproj",
+      "projectUniqueName": "C:\\Users\\capv2\\OneDrive\\Documentos\\projeto de gordao\\resum-ai\\Resumai.csproj",
       "projectName": "Resumai",
-      "projectPath": "C:\\Users\\cpeixoto\\Resumai\\Resumai.csproj",
-      "packagesPath": "C:\\Users\\cpeixoto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\cpeixoto\\Resumai\\obj\\",
+      "projectPath": "C:\\Users\\capv2\\OneDrive\\Documentos\\projeto de gordao\\resum-ai\\Resumai.csproj",
+      "packagesPath": "C:\\Users\\capv2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\capv2\\OneDrive\\Documentos\\projeto de gordao\\resum-ai\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\cpeixoto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\capv2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8280,6 +8319,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -8296,7 +8336,7 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
+        "auditMode": "all"
       },
       "SdkAnalysisLevel": "9.0.100"
     },
@@ -8304,6 +8344,10 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
+          "Automapper": {
+            "target": "Package",
+            "version": "[15.1.0, )"
+          },
           "BCrypt": {
             "target": "Package",
             "version": "[1.0.0, )"
@@ -8352,11 +8396,21 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
   "logs": [
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "O pacote 'System.Text.RegularExpressions' 4.3.0 tem uma alta vulnerabilidade de gravidade conhecida, https://github.com/advisories/GHSA-cmhx-cq75-c4mj",
+      "libraryId": "System.Text.RegularExpressions",
+      "targetGraphs": [
+        "net9.0"
+      ]
+    },
     {
       "code": "NU1701",
       "level": "Warning",

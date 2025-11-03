@@ -13,6 +13,7 @@ namespace Resumai.DTOs
         public required Guid UserID { get; set; }
         public required string Role { get; set; }
         public required string Category { get; set; }
-        public required string Company { get; set; } 
+        public required string Company { get; set; }
+        public bool IsCurrent => this.EndDate < DateTime.UtcNow;
     }
 }

@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
+using Resumai.Models;
 namespace Resumai.Auth
 {
     public class JwtService
@@ -18,7 +19,7 @@ namespace Resumai.Auth
             _jwtSettings = jwtSettings.Value;
         }
 
-        public string GenerateToken(string userId, string username)
+        public string GenerateToken(User u)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
@@ -27,8 +28,12 @@ namespace Resumai.Auth
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, userId),
-                    new Claim(ClaimTypes.Name, username)
+                    new Claim(ClaimTypes.NameIdentifier, u.Id.ToString()),
+                    new Claim(ClaimTypes.UserData, u.Username),
+                    new Claim(ClaimTypes.Email, u.Email),
+                    new Claim(ClaimTypes.Locality, u.Location),
+                    new Claim(ClaimTypes.Name, u.Name)
+
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpireMinutes),
                 Issuer = _jwtSettings.Issuer,

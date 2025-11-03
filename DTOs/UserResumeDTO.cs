@@ -32,6 +32,9 @@ namespace Resumai.DTOs
 
         [JsonPropertyName("skills")]
         public List<SkillItemDTO>? Skills { get; set; }
+
+        [JsonPropertyName("links")]
+        public Dictionary<string, string>? Links { get; set; }
     }
 
     public class JobExperienceItemDTO

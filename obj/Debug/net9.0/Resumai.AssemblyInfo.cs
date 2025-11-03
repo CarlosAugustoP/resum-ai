@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Resumai")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e30568ba0d008f0dde7d78d9b7fa4794f17c28c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8677c0898b639e949fb39cad9d6583f352330d33")]
 [assembly: System.Reflection.AssemblyProductAttribute("Resumai")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Resumai")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

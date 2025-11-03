@@ -22,13 +22,15 @@ namespace Resumai.Models
         {
         }
 
-        public Resume(Guid userId,  string content)
+        public Resume(Guid userId,  string content, string title, string summary)
         {
             Id = Guid.NewGuid();
             Status = ResumeStatus.Draft;
             CreatedAt = DateTime.UtcNow;
             UserId = userId;
             Content = content;
+            Title = title;
+            Summary = summary;
         }
 
         public void SetAsCurrent()

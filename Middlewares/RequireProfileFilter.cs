@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Resumai.Middlewares
 {
-    public class RequireProfileFilter : IAuthorizationFilter
+    public class RequireProfileFilter : ActionFilterAttribute
     {
-        public void OnAuthorization(AuthorizationFilterContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             var user = context.HttpContext.Items["User"];
             if (user == null)

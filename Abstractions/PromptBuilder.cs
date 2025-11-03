@@ -13,6 +13,7 @@ namespace Resumai.Abstractions
         private List<JobExperienceDTO>? _jobs;
         private List<EducationDTO>? _educations;
         private List<SkillDTO>? _skills;
+        private List<LinkDTO>? _links;
         private string? _textPrompt;
         private List<TagEnum>? _tags;
         public string? Language { get; set; }
@@ -20,6 +21,12 @@ namespace Resumai.Abstractions
         public PromptBuilder WithUser(UserDTO user)
         {
             _user = user;
+            return this;
+        }
+
+        public PromptBuilder WithLinks(List<LinkDTO> links)
+        {
+            _links = links;
             return this;
         }
 
@@ -105,6 +112,15 @@ namespace Resumai.Abstractions
                 sb.AppendLine(string.Join(", ", _tags));
             }
 
+            if (_links is not null && _links.Any())
+            {
+                sb.AppendLine("\nLinks relevantes:");
+                foreach (var link in _links)
+                {
+                    sb.AppendLine($"- {link.Description}: {link.Url}");
+                }
+            }
+
             if (!string.IsNullOrWhiteSpace(_textPrompt))
             {
                 sb.AppendLine("\nInstruções adicionais:");
@@ -132,6 +148,11 @@ namespace Resumai.Abstractions
                         ""key_skills"": { 
                             ""type"": ""array"", 
                             ""items"": { ""type"": ""string"" }
+                        },
+                        ""links"": {
+                            ""type"": ""object"",
+                            ""description"": ""Links relevantes do usuário"",
+                            ""additionalProperties"": { ""type"": ""string"" }
                         },
                         ""job_experiences"": {
                             ""type"": ""array"",

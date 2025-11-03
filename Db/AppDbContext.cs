@@ -14,6 +14,7 @@ namespace Resumai.Db
         public DbSet<JobExperience> JobExperiences { get; set; } = null!;
         public DbSet<Education> Educations { get; set; } = null!;
         public DbSet<Skill> Skills { get; set; } = null!;
+        public DbSet<Link> Links { get; set; } = null!;
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }

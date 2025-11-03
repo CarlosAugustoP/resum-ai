@@ -35,6 +35,12 @@ namespace Resumai.Services.Domain
                 .ToList()
                 .Select(x => _mapper.Map<JobExperienceDTO>(x))
                  ?? [];
+                
+            var links = _db.Links
+                .Where(x => x.UserId == currentUser.Id)
+                .ToList()
+                .Select(x => _mapper.Map<LinkDTO>(x))
+                ?? [];
 
             var educations = _db.Educations
                 .Where(x => x.UserId == currentUser.Id)
@@ -58,22 +64,34 @@ namespace Resumai.Services.Domain
                 .WithLanguage(language)
                 .WithJobExperiences(jobs.ToList())
                 .WithEducations(educations.ToList())
-                .WithSkills(skills.ToList());
+                .WithSkills(skills.ToList())
+                .WithLinks(links.ToList());
 
             var response = await OpenAiService.Call(pb);
+            var json = JsonSerializer.Serialize(response);
 
-            _db.Add(new Resume(currentUser.Id, JsonSerializer.Serialize(response)));
+            _db.Add(new Resume(currentUser.Id, json, response.ResumeTitle ?? GetGenericTitle(currentUser), response.ResumeSummary));
 
             await _db.SaveChangesAsync();
             return response;
+        }
+
+        private static string GetGenericTitle(UserDTO u)
+        {
+            return $"{u.Name}'s Resume {DateTime.UtcNow:yyyy-MM-dd}";
         }
 
         public UserResumeDTO GetCurrent(UserDTO user)
         {
             var resume = _db.Resumes.FirstOrDefault(x => x.UserId == user.Id && x.Status == ResumeStatus.Current)
                 ?? throw new NotFoundException("Current resume not found.");
-            return _mapper.Map<UserResumeDTO>(resume);
+
+            var actualResume = JsonSerializer.Deserialize<UserResumeDTO>(resume.Content)
+                ?? throw new Exception("Failed to deserialize resume content.");
+
+            return _mapper.Map<UserResumeDTO>(actualResume);
         }
+        
 
         public bool SaveResume(UserDTO user, SaveResumeRequest req, Guid resumeId)
         {
@@ -132,6 +150,20 @@ namespace Resumai.Services.Domain
             var paginatedResumes = query.Paginate(pageRequest);
 
             return paginatedResumes.Select(x => JsonSerializer.Deserialize<UserResumeDTO>(x.Content)!);
+        }
+
+        public PaginatedList<ResumeHeaderDTO> GetResumeHeaders(UserDTO user, PageRequest pageRequest)
+        {
+            var query = _db.Resumes
+                .Where(x => x.UserId == user.Id)
+                .OrderByDescending(x => x.CreatedAt);
+
+            var paginatedResumes = query.Paginate(pageRequest);
+
+            return paginatedResumes.Select(x =>
+            {
+                return new ResumeHeaderDTO(x.Title, x.Summary, x.Id);
+            });
         }
     }
 }

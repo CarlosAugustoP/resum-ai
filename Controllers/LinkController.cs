@@ -5,6 +5,7 @@ using Resumai.Middlewares;
 using Resumai.Services.Domain;
 using Resumai.Utils;
 using Resumai.Abstractions;
+using Resumai.DTOs.Requests;
 
 namespace Resumai.Controllers
 {
@@ -44,9 +45,9 @@ namespace Resumai.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public ActionResult<LinkDTO> UpdateLink(Guid id, [FromBody] UpdateLinkRequest request)
+        public ActionResult<LinkDTO> UpdateLink(Guid id, [FromBody] CreateLinkRequest request)
         {
-            var link = _linkService.UpdateLink(CurrentUser, id, request.Url, request.Description);
+            var link = _linkService.UpdateLink(CurrentUser!, id, request.Url, request.Description);
             return Ok(Result<LinkDTO>.Success(link));
         }
 
@@ -60,15 +61,5 @@ namespace Resumai.Controllers
     }
 
     // DTOs auxiliares
-    public class CreateLinkRequest
-    {
-        public string Url { get; set; } = null!;
-        public string Description { get; set; } = null!;
-    }
-
-    public class UpdateLinkRequest
-    {
-        public string Url { get; set; } = null!;
-        public string Description { get; set; } = null!;
-    }
+    
 }
